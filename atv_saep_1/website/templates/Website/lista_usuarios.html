@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Usuários</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            justify-content: center;
+        }
+        .card {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            border-left: 5px solid #007bff;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        .btn-edit {
+            background: #ffc107;
+            color: black;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn-delete {
+            background: #dc3545;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn-edit:hover {
+            background: #e0a800;
+        }
+        .btn-delete:hover {
+            background: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Usuários e Tarefas</h1>
+        <a href="{% url 'home' %}" class="btn">Voltar para Home</a>
+        <div class="grid-container">
+{% for item in dados_usuarios %}
+    <div class="card">
+        <h2>Usuário: {{ item.usuario.nome }}</h2>
+        <h3>Tarefas:</h3>
+
+        {% if item.tarefas %}
+            <ul>
+                {% for tarefa in item.tarefas %}
+                    <li>
+                        <strong>Descrição:</strong> {{ tarefa.descricao }} <br>
+                        <strong>Setor:</strong> {{ tarefa.setor }} <br>
+                        <strong>Prioridade:</strong> {{ tarefa.prioridade }}
+                        <br>
+                        <!-- Botão de edição para cada tarefa -->
+                        <a href="{% url 'editar_tarefa' tarefa.id_tarefa %}" class="btn btn-primary">
+                            Editar
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p><em>Ainda não registrado</em></p>
+        {% endif %}
+
+        <!-- Botões de exclusão -->
+        <a href="{% url 'excluir_tarefas_usuario' item.usuario.id_usuario %}" class="btn btn-warning">
+            Excluir Tarefas
+        </a>
+        <a href="{% url 'excluir_usuario' item.usuario.id_usuario %}" class="btn btn-danger">
+            Excluir Usuário
+        </a>
+    </div>
+{% endfor %}
+
+        </div>
+    </div>
+</body>
+</html>

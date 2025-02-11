@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Tarefa</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Editar Tarefa</h1>
+
+        <form method="POST">
+            {% csrf_token %}
+            <label for="descricao">Descrição:</label>
+            <input type="text" id="descricao" name="descricao" value="{{ tarefa.descricao }}" required>
+
+            <label for="setor">Setor:</label>
+            <input type="text" id="setor" name="setor" value="{{ tarefa.setor }}" required>
+
+            <label for="prioridade">Prioridade:</label>
+            <select id="prioridade" name="prioridade" required>
+                <option value="Alta" {% if tarefa.prioridade == "Alta" %}selected{% endif %}>Alta</option>
+                <option value="Média" {% if tarefa.prioridade == "Média" %}selected{% endif %}>Média</option>
+                <option value="Baixa" {% if tarefa.prioridade == "Baixa" %}selected{% endif %}>Baixa</option>
+            </select>
+
+            <button type="submit" class="btn btn-success">Salvar Alterações</button>
+            <a href="{% url 'lista_usuarios' %}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</body>
+</html>
