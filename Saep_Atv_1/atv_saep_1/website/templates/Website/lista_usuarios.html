@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Usuários</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Usuários e Tarefas</h1>
+        <a href="{% url 'home' %}" class="btn">Voltar para Home</a>
+
+        {% for item in dados_usuarios %}
+            <div class="card">
+                <h2>Usuário: {{ item.usuario.nome }}</h2>
+                <h3>Tarefas:</h3>
+
+                {% if item.tarefas %}
+                    <ul>
+                        {% for tarefa in item.tarefas %}
+                            <li>
+                                <strong>Descrição:</strong> {{ tarefa.descricao }} <br>
+                                <strong>Setor:</strong> {{ tarefa.setor }} <br>
+                                <strong>Prioridade:</strong> {{ tarefa.prioridade }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p><em>Ainda não registrado</em></p>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
