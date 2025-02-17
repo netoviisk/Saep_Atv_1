@@ -1,0 +1,16 @@
+CREATE DATABASE cliente_tarefa;
+
+USE cliente_tarefa;
+
+CREATE TABLE usuario(
+	id_usuario INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    senha VARCHAR(25) NOT NULL
+);
+
+CREATE TABLE tarefa(
+	id_tarefa INT PRIMARY KEY AUTO_INCREMENT,
+    descricao VARCHAR(100) NOT NULL,
+    setor VARCHAR(100) NOT NULL,
+    prioridade ENUM('Alta','Média','Baixa') NOT NULL
+);
